@@ -2,10 +2,13 @@ package sample;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.shape.*;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
+import javafx.scene.control.Label;
+import javafx.geometry.Pos;
 
 public class Main extends Application {
 
@@ -21,8 +24,17 @@ public class Main extends Application {
         Line l5 = new Line(130, 155, 400, 155);
 
 
+        Ellipse ellipse = new Ellipse(); {
+            ellipse.setCenterX(50.0f);
+            ellipse.setCenterY(50.0f);
+            ellipse.setRadiusX(50.0f);
+            ellipse.setRadiusY(25.0f);
+        }
+
         Polyline polyline1 = new Polyline();
         Polyline polyline2 = new Polyline();
+        Rectangle p = new Rectangle(50,50,100,200);
+
 
 
         primaryStage.setTitle("Lab1");
@@ -37,7 +49,7 @@ public class Main extends Application {
         l4.setStroke(Color.BLACK);
         l5.setStroke(Color.BLACK);
         polyline2.setFill(Color.BLUE);
-
+        ellipse.setFill(Color.RED);
 
 
 
@@ -53,12 +65,23 @@ public class Main extends Application {
                 430.0, 178.0,
                 370.0, 145.0);
 
+
+
+        p.setFill(Color.GREEN);
+
         circle.setCenterX(150.0f);
         circle.setCenterY(148.0f);
         circle.setRadius(38.0f);
-
+//        root.getChildren().add(ellipse);
+        root.getChildren().add(p);
         root.getChildren().add(polyline1);
         root.getChildren().add(polyline2);
+        final Label label = new Label("dasda"
+        );
+        label.setTranslateY(200);
+        label.setTranslateX(350);
+        label.setAlignment(Pos.CENTER);
+
 
         root.getChildren().add(circle);
         root.getChildren().add(l1);
@@ -66,7 +89,7 @@ public class Main extends Application {
         root.getChildren().add(l3);
         root.getChildren().add(l4);
         root.getChildren().add(l5);
-
+        root.getChildren().add(label);
         primaryStage.setScene(scene);
         primaryStage.show();
 

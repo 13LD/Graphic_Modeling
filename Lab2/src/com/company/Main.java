@@ -20,9 +20,15 @@ public class Main extends JPanel implements ActionListener {
             { x + 370, y + 145 }
     };
     Timer timer;
-
+    // Для анімації повороту
+    private double angle = 0;
     private double scale = 1;
     private double delta = 0.01;
+
+    // Для анімації руху
+    private double dx = 1;
+    private double tx = 0;
+    private double dy = 1;
 
     private double ty = 6;
     private static int maxWidth;
@@ -47,7 +53,10 @@ public class Main extends JPanel implements ActionListener {
         super.paint(g);
         Graphics2D g2d = (Graphics2D)g;
         g2d.setBackground(Color.GRAY);
-        g2d.setColor(Color.YELLOW);
+        GradientPaint gp = new GradientPaint(15, 10,
+                Color.GREEN, 15, 15, Color.RED, true);
+        g2d.setPaint(gp);
+
 
         g2d.clearRect(0, 0, maxWidth+1, maxHeight+1);
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -55,18 +64,24 @@ public class Main extends JPanel implements ActionListener {
         g2d.setRenderingHint(RenderingHints.KEY_RENDERING,
                 RenderingHints.VALUE_RENDER_QUALITY);
 
-        BasicStroke bs3 = new BasicStroke(20, BasicStroke.CAP_ROUND,
+        // Перетворення для анімації руху.
+
+        BasicStroke bs3 = new BasicStroke(40, BasicStroke.CAP_ROUND,
                 BasicStroke.JOIN_MITER);
         g2d.setStroke(bs3);
-        g2d.drawRect(20, 20, 760, 560);
 
-        g2d.scale(scale, 0.99);
-        GradientPaint gp = new GradientPaint(5, 25,
+        g2d.drawRect(20, 20, 760, 560);
+        gp = new GradientPaint(10, 10,
                 Color.RED, 20, 2, Color.BLUE, true);
         g2d.setPaint(gp);
+        g2d.translate(tx, ty);
+
+        g2d.scale(scale, 0.99);
+
 
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,
                 (float)scale));
+
 
         drawPath(g2d, left_part);
         g2d.setColor(Color.BLUE);
@@ -108,8 +123,20 @@ public class Main extends JPanel implements ActionListener {
         } else if (scale > 0.99) {
             delta = -delta;
         }
+        if ( tx < -maxWidth/3 ) {
+            dx = -dx;
+        } else if ( tx > maxWidth/3 ) {
+            dx = -dx;
+        }
+        if ( ty < -maxHeight/3 ) {
+            dy = -dy;
+        } else if ( ty > maxHeight/3 ) {
+            dy = -dy;
+        }
         scale += delta;
-
+        angle += 0.01;
+        tx += dx;
+        ty += dy;
         repaint();
     }
 }
